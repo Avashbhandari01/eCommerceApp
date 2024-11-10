@@ -9,9 +9,9 @@ namespace eCommerceApp.Application.Services.Interfaces
 
         Task<GetCategory> GetByIdAsync(Guid id);
 
-        Task<ServiceResponse> AddAsync(CreateCategory product);
+        Task<ServiceResponse> AddAsync(CreateCategory category);
 
-        Task<ServiceResponse> UpdateAsync(UpdateCategory product);
+        Task<ServiceResponse> UpdateAsync(UpdateCategory category);
 
         Task<ServiceResponse> DeleteAsync(Guid id);
     }

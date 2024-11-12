@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using eCommerceApp.Application.Services.Interfaces.Logging;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace eCommerceApp.Infrastructure.Middleware
 {
@@ -12,10 +14,12 @@ namespace eCommerceApp.Infrastructure.Middleware
             {
                 await _next(context);
             } catch (DbUpdateException ex) 
-            { 
+            {
+                var logger = context.RequestServices.GetRequiredService<IAppLogger<ExceptionHandlingMiddleware>>();
                 context.Response.ContentType = "application/json";
                 if (ex.InnerException is SqlException innerException)
                 {
+                    logger.LogError(innerException, "Sql Exception");
                     switch (innerException.Number)
                     {
                         case 2627:

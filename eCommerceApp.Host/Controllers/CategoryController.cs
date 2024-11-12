@@ -25,6 +25,9 @@ namespace eCommerceApp.Host.Controllers
         [HttpPost("add-category")]
         public async Task<IActionResult> AddCategory(CreateCategory category)
         {
+            if(!ModelState.IsValid) 
+                return BadRequest(ModelState);
+
             var result = await _category.AddAsync(category);
             return result.Success ? Ok(result) : BadRequest(result);
         }
@@ -32,6 +35,9 @@ namespace eCommerceApp.Host.Controllers
         [HttpPost("update-category")]
         public async Task<IActionResult> UpdateProduct(UpdateCategory category)
         {
+            if (!ModelState.IsValid) 
+                return BadRequest(ModelState);
+
             var result = await _category.UpdateAsync(category);
             return result.Success ? Ok(result) : BadRequest(result);
         }

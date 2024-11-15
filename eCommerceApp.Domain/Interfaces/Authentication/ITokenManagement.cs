@@ -6,7 +6,7 @@ namespace eCommerceApp.Domain.Interfaces.Authentication
     {
         string GetRefreshToken();
 
-        List<Claim> GetUserClaimsFromToken(string email);
+        List<Claim> GetUserClaimsFromToken(string token);
 
         Task<bool> ValidateRefreshToken(string refreshToken);
 

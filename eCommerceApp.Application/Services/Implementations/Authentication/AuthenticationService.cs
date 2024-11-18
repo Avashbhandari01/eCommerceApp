@@ -18,7 +18,7 @@ namespace eCommerceApp.Application.Services.Implementations.Authentication
         public async Task<ServiceResponse> CreateUser(CreateUser user)
         {
             var _validationResult = await validationService.ValidateAsync(user, createUserValidator);
-            if (_validationResult.Success) return _validationResult;
+            if (!_validationResult.Success) return _validationResult;
 
             var mappedModel = mapper.Map<AppUser>(user);
             mappedModel.UserName = user.Email;
@@ -64,7 +64,13 @@ namespace eCommerceApp.Application.Services.Implementations.Authentication
             string jwtToken = tokenManagement.GenerateToken(claims);
             string refreshToken = tokenManagement.GetRefreshToken();
 
-            int saveTokenResult = await tokenManagement.AddRefreshToken(_user.Id, refreshToken);
+            int saveTokenResult = 0;
+            bool userTokenCheck = await tokenManagement.ValidateRefreshToken(refreshToken);
+            if(userTokenCheck)
+                await tokenManagement.UpdateRefreshToken(_user.Id, refreshToken);
+            else
+            saveTokenResult = await tokenManagement.AddRefreshToken(_user.Id, refreshToken);
+
             return saveTokenResult <= 0 ? new LoginResponse(Message: "Internal error occured while authenticating") :
                 new LoginResponse(Success: true, Token: jwtToken, RefreshToken: refreshToken);
 

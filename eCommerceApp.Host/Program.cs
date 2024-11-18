@@ -11,7 +11,7 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog();
-    
+
 Log.Logger.Information("Application is building.........");
 
 builder.Services.AddControllers();
@@ -29,7 +29,7 @@ builder.Services.AddCors(builder => {
     {
         options.AllowAnyHeader()
         .AllowAnyMethod()
-        .AllowAnyOrigin()
+        .WithOrigins("https://localhost:7025")
         .AllowCredentials();
     });
 });

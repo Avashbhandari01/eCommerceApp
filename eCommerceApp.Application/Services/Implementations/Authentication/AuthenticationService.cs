@@ -83,7 +83,7 @@ namespace eCommerceApp.Application.Services.Implementations.Authentication
                 return new LoginResponse(Message: "Invalid token!");
 
             string userId = await tokenManagement.GetUserIdByRefreshToken(refreshToken);
-            AppUser? user = await userManagement.GetUserByEmail(userId);
+            AppUser? user = await userManagement.GetUserById(userId);
             var claims = await userManagement.GetUserClaims(user!.Email!);
             string newJwtToken = tokenManagement.GenerateToken(claims);
             string newRefreshToken = tokenManagement.GetRefreshToken();

@@ -212,8 +212,8 @@ namespace eCommerceApp.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1dc85dcb-1efe-48a2-a647-6335903c4d87", null, "Admin", "ADMIN" },
-                    { "71cda97b-cd0d-4174-983e-d19148e47e10", null, "User", "USER" }
+                    { "4310e707-8c9f-41e4-89ca-b1fd4642f458", null, "User", "USER" },
+                    { "aa9c01fd-605e-4124-9e0c-e52326a6d487", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
